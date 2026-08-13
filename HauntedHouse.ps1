@@ -108,12 +108,12 @@ function New-Room {
 #region ---------- Display Helpers ----------
 
 function Show-Intro {
-    #Clear-Host
+    Clear-Host
     Write-Art $FoyerArt "DarkGray"
     Write-Host ""
     Write-Slow "THE HAUNTED HOUSE" 20 "Red"
     Write-Host ""
-    Write-Slow "Your flashlight flickers as you step through the front door of the old Blackwood house." 10 "White"
+    Write-Slow "Your flashlight flickers as you step through the front door of the old Clownyface house." 10 "White"
     Write-Slow "Legend says a treasure lies buried somewhere within its twelve rooms..." 10 "White"
     Write-Slow "You've brought two stuffed skeletons for courage: a black one and a blue one." 10 "White"
     Write-Host ""
@@ -225,7 +225,7 @@ function Show-Treasure {
     Write-Art $TreasureArt "Yellow"
     Write-Host ""
     Write-Slow "Your flashlight beam catches a glint of gold beneath a floorboard..." 8 "Yellow"
-    Write-Slow "You pry it open and find an ancient chest, brimming with coins, jewels, and a faded photograph of the Blackwood family." 8 "Yellow"
+    Write-Slow "You pry it open and find an ancient chest, brimming with coins, jewels, and a faded photograph of the Clownyface family." 8 "Yellow"
     Write-Host ""
     if ($global:GhostBefriended) {
         Write-Slow "The child ghost from the attic appears beside you, smiling for the first time in a hundred years." 8 "Magenta"
@@ -534,7 +534,7 @@ function Start-Game {
     }
 
     Write-Host ""
-    Write-Slow "Thanks for exploring the Blackwood house." 10 "DarkCyan"
+    Write-Slow "Thanks for exploring the Clownyface house." 10 "DarkCyan"
 }
 
 #endregion

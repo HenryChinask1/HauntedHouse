@@ -9,7 +9,7 @@ Builds $global:Rooms and picks $global:TreasureRoom.
 $global:Rooms = @{}
 
 # --- Ground floor ---
-New-Room -Id "foyer" -Name "Front Foyer" -Floor 1 -Desc "You stand in a grand, dusty foyer. A chandelier sways slightly though there's no breeze. A staircase leads up. Doors lead to a Living Room and a Dining Room." -Art $FoyerArt -Exits @{ north="livingroom"; east="dining"; up="hallway" }
+New-Room -Id "foyer" -Name "Front Foyer" -Floor 1 -Desc "You stand in a grand, dusty foyer. A chandelier sways slightly even though there's no breeze. A staircase leads up. Doors lead to a Living Room and a Dining Room." -Art $FoyerArt -Exits @{ north="livingroom"; east="dining"; up="hallway" }
 
 New-Room -Id "livingroom" -Name "Living Room" -Floor 1 -Desc "An old TV flickers in the corner, somehow still playing 'Gabby's Dollhouse' reruns to no one. Moth-eaten sofas line the walls." -Art $LivingRoomArt -Exits @{ south="foyer"; east="kitchen" } -Clue "The TV static briefly clears, showing a message: 'Under the stairs, cats don't dig, but treasure might.'"
 
