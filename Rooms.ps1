@@ -39,3 +39,38 @@ New-Room -Id "attic" -Name "Attic" -Floor 2 -Desc "Dust hangs thick in your flas
 # Randomize treasure room among rooms that are not foyer/hallway (entry points)
 $possibleTreasureRooms = @("livingroom","dining","kitchen","basement","master","library","study","kidsroom","closet","bath","attic")
 $global:TreasureRoom = $possibleTreasureRooms | Get-Random
+
+# --- Map data (used by the `map` command for a top-down view) ---
+
+# Short labels for the grid cells (kept to ~9 chars so they fit the boxes)
+$global:RoomLabels = @{
+    foyer      = "Foyer"
+    livingroom = "Living Rm"
+    dining     = "Dining"
+    kitchen    = "Kitchen"
+    basement   = "Basement"
+    hallway    = "Hallway"
+    master     = "Master Bd"
+    library    = "Library"
+    study      = "Study"
+    kidsroom   = "Kids Room"
+    closet     = "Closet"
+    bath       = "Bath"
+    attic      = "Attic"
+}
+
+# Top-down grid layout per floor. $null = empty lot. Position reflects each
+# room's Exits in the layout above (N/S/E/W), so the grid lines up with how
+# you actually walk between rooms.
+$global:FloorLayouts = @{
+    1 = @(
+        @("livingroom", "kitchen"),
+        @("foyer",       "dining"),
+        @($null,         "basement")
+    )
+    2 = @(
+        @("closet",   "master",  "study"),
+        @("kidsroom", "hallway", "library"),
+        @($null,      "bath",    $null)
+    )
+}

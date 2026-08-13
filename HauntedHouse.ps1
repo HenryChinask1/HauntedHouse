@@ -71,6 +71,7 @@ $global:ArmorMoved = $false
 $global:GhostBefriended = $false
 $global:DumbwaiterUnlocked = $false
 $global:CurrentRoom = $null
+$global:PendingLockedRoom = $null
 
 # Rooms that are lit well enough to see/search without the flashlight
 $global:LitRooms = @("foyer","livingroom","dining","kitchen","hallway")
@@ -154,14 +155,67 @@ function Show-Clues {
     }
 }
 
+function Get-CellText {
+    param([string]$RoomId, [int]$Width)
+
+    if (-not $RoomId) { return (" " * $Width) }
+
+    $label = $global:RoomLabels[$RoomId]
+    if (-not $global:Visited.ContainsKey($RoomId)) {
+        $label = "?" * [Math]::Min($label.Length, 7)
+    }
+    if ($RoomId -eq $global:CurrentRoom) {
+        $label = "*$label*"
+    }
+
+    $pad = $Width - $label.Length
+    $left = [Math]::Max([Math]::Floor($pad / 2), 0)
+    $right = [Math]::Max($pad - $left, 0)
+    return ((" " * $left) + $label + (" " * $right))
+}
+
+function Get-CellColor {
+    param([string]$RoomId)
+    if ($RoomId -and $RoomId -eq $global:CurrentRoom) { return "Yellow" }
+    if ($RoomId -and $global:Visited.ContainsKey($RoomId)) { return "White" }
+    return "DarkGray"
+}
+
+function Write-FloorGrid {
+    param($Layout, [int]$Width = 13)
+
+    $numCols = $Layout[0].Count
+    $border = "+" + ((("-" * $Width) + "+") * $numCols)
+
+    Write-Host $border -ForegroundColor DarkGray
+    foreach ($row in $Layout) {
+        Write-Host -NoNewline "|" -ForegroundColor DarkGray
+        foreach ($cell in $row) {
+            Write-Host -NoNewline (Get-CellText -RoomId $cell -Width $Width) -ForegroundColor (Get-CellColor $cell)
+            Write-Host -NoNewline "|" -ForegroundColor DarkGray
+        }
+        Write-Host ""
+        Write-Host $border -ForegroundColor DarkGray
+    }
+}
+
 function Show-Map {
     Write-Host ""
-    Write-Host "Rooms visited:" -ForegroundColor Cyan
-    foreach ($k in $global:Visited.Keys) {
-        $r = $global:Rooms[$k]
-        $exitList = ($r.Exits.Keys -join ", ")
-        Write-Host "  $($r.Name) [Floor $($r.Floor)] -> exits: $exitList"
-    }
+    Write-Host "===== FLOOR 1 =====" -ForegroundColor Cyan
+    Write-FloorGrid -Layout $global:FloorLayouts[1]
+    Write-Host "  stairs (Foyer) <-> Hallway, Floor 2" -ForegroundColor DarkGray
+
+    Write-Host ""
+    Write-Host "===== FLOOR 2 =====" -ForegroundColor Cyan
+    Write-FloorGrid -Layout $global:FloorLayouts[2]
+
+    $atticLabel = if ($global:CurrentRoom -eq "attic") { "*Attic*" } elseif ($global:Visited.ContainsKey("attic")) { "Attic" } else { "???" }
+    Write-Host "  $atticLabel - up narrow stairs from Master Bedroom" -ForegroundColor (Get-CellColor "attic")
+    Write-Host "  dumbwaiter: Master Bedroom <-> Kitchen" -ForegroundColor DarkGray
+
+    Write-Host ""
+    Write-Host "You are in the $($global:Rooms[$global:CurrentRoom].Name)." -ForegroundColor Yellow
+    Write-Host "(Yellow = you, White = visited, Grey = undiscovered)" -ForegroundColor DarkGray
 }
 
 function Show-Treasure {
@@ -226,9 +280,10 @@ function Enter-Room {
 
     $room = $global:Rooms[$RoomId]
 
-    if ($room.Locked -and -not (Test-KeyHeld $room.KeyNeeded)) {
+    if ($room.Locked) {
         Write-Host ""
         Write-Slow "The door is locked tight. You'll need to find a way in." 8 "Red"
+        $global:PendingLockedRoom = $RoomId
         return $false
     }
 
@@ -349,7 +404,20 @@ function Use-Item {
     }
 
     if ($ItemArg -match "key") {
-        Write-Slow "You'll need to be at a locked door for a key to help. Try walking toward the Basement or Master Bedroom stairs." 6 "DarkGray"
+        if (-not $global:PendingLockedRoom) {
+            Write-Slow "There's no locked door here to use a key on. Try walking toward one first." 6 "DarkGray"
+            return
+        }
+
+        $lockedRoom = $global:Rooms[$global:PendingLockedRoom]
+        if (Test-KeyHeld $lockedRoom.KeyNeeded) {
+            Write-Slow "You slide the key into the lock. It turns with a rusty groan - the door swings open!" 8 "Green"
+            $lockedRoom.Locked = $false
+            $global:PendingLockedRoom = $null
+            Enter-Room $lockedRoom.Id | Out-Null
+        } else {
+            Write-Slow "You try your key, but it doesn't fit this lock." 6 "Red"
+        }
         return
     }
 
@@ -369,10 +437,16 @@ function Use-Item {
 
     if ($ItemArg -match "dumbwaiter") {
         if ($global:CurrentRoom -eq "master" -or $global:CurrentRoom -eq "kitchen") {
-            $global:DumbwaiterUnlocked = $true
             $dest = if ($global:CurrentRoom -eq "master") { "kitchen" } else { "master" }
-            Write-Slow "You climb into the dusty dumbwaiter and pull the rope. With a groan, it carries you to the $($global:Rooms[$dest].Name)!" 8 "Cyan"
-            Enter-Room $dest
+            $destRoom = $global:Rooms[$dest]
+            if ($destRoom.Locked) {
+                Write-Slow "You climb in and pull the rope, but the dumbwaiter jams partway - the door on the other side is locked tight." 8 "Red"
+                $global:PendingLockedRoom = $dest
+                return
+            }
+            $global:DumbwaiterUnlocked = $true
+            Write-Slow "You climb into the dusty dumbwaiter and pull the rope. With a groan, it carries you to the $($destRoom.Name)!" 8 "Cyan"
+            Enter-Room $dest | Out-Null
         } else {
             Write-Slow "There's no dumbwaiter here. It only connects the Master Bedroom and the Kitchen." 6 "DarkGray"
         }
