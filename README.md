@@ -21,6 +21,7 @@ Or, if you're already in a PowerShell prompt with a permissive execution policy:
 - `go <direction>` / `north`, `south`, `east`, `west`, `up`, `down` — move between rooms
 - `look` — re-read the current room
 - `search` — search the room for clues and items
+- `dig` — dig for buried treasure in this room
 - `talk` — talk to a character in the room, if any
 - `use <item>` — use an item (e.g. `use flashlight`, `use black skeleton`, `use dumbwaiter`)
 - `flashlight` — toggle your flashlight on/off

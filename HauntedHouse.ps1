@@ -95,6 +95,7 @@ function New-Room {
         Npc = $Npc
         Item = $Item
         Searched = $false
+        Dug = $false
     }
 }
 
@@ -126,6 +127,7 @@ function Show-Help {
     Write-Host "  go <direction>     - move (north, south, east, west, up, down)"
     Write-Host "  look               - re-read the room description"
     Write-Host "  search             - search the room for clues/items"
+    Write-Host "  dig                - dig for buried treasure in this room"
     Write-Host "  inventory / i      - show what you're carrying"
     Write-Host "  flashlight         - toggle your flashlight on/off"
     Write-Host "  clues              - review clues you've collected"
@@ -321,11 +323,6 @@ function Invoke-Search {
     }
     $room.Searched = $true
 
-    if ($room.Id -eq $global:TreasureRoom) {
-        Show-Treasure
-        return
-    }
-
     if ($room.Clue) {
         Write-Host ""
         Write-Slow "You search carefully and find something..." 6 "Cyan"
@@ -344,6 +341,28 @@ function Invoke-Search {
         $global:HasAtticKey = $true
         Write-Slow "Tucked behind the globe, you find a tarnished key labeled 'ATTIC'!" 6 "Green"
     }
+}
+
+function Invoke-Dig {
+    $room = $global:Rooms[$global:CurrentRoom]
+
+    if (-not $global:FlashlightOn -and $room.Id -notin $global:LitRooms) {
+        Write-Slow "It's too dark to dig properly. Turn on your flashlight first." 8 "Red"
+        return
+    }
+
+    if ($room.Id -eq $global:TreasureRoom) {
+        Show-Treasure
+        return
+    }
+
+    if ($room.Dug) {
+        Write-Slow "You've already dug through this room. There's nothing more buried here." 6 "DarkYellow"
+        return
+    }
+    $room.Dug = $true
+
+    Write-Slow "You dig around the floorboards and corners, but there's no treasure buried here." 6 "DarkGray"
 }
 
 function Start-Talk {
@@ -474,6 +493,7 @@ function Invoke-Command {
         "^map$" { Show-Map }
         "^look$" { Enter-Room $global:CurrentRoom | Out-Null }
         "^search$" { Invoke-Search }
+        "^dig$" { Invoke-Dig }
         "^talk$" { Start-Talk }
         "^flashlight$" { Enable-Flashlight }
         "^use$" { Use-Item -ItemArg $arg }

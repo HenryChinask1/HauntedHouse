@@ -37,7 +37,7 @@ New-Room -Id "bath" -Name "Bathroom" -Floor 2 -Desc "A cracked mirror shows your
 New-Room -Id "attic" -Name "Attic" -Floor 2 -Desc "Dust hangs thick in your flashlight beam. Trunks and boxes are piled everywhere. Something pale drifts between them." -Art $AtticArt -Exits @{ down="master" } -Npc "ghost"
 
 # Randomize treasure room among rooms that are not foyer/hallway (entry points)
-$possibleTreasureRooms = @("livingroom","dining","kitchen","basement","master","library","study","kidsroom","closet","bath","attic")
+$possibleTreasureRooms = @("basement","master","library","study","kidsroom","closet","bath","attic")
 $global:TreasureRoom = $possibleTreasureRooms | Get-Random
 
 # --- Map data (used by the `map` command for a top-down view) ---
