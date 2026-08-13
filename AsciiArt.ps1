@@ -2,6 +2,10 @@
 ASCII art for the Haunted House game.
 Dot-sourced by HauntedHouse.ps1 - defines one $XxxArt string per room, plus the treasure art.
 #>
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    'PSUseDeclaredVarsMoreThanAssignments', '',
+    Justification = 'These variables are read from Rooms.ps1 after this file is dot-sourced, which the analyzer cannot see within this file alone.')]
+param()
 
 $FoyerArt = @"
                                 .-----.
