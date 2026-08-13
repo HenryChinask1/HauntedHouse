@@ -106,14 +106,14 @@ function New-Room {
 #region ---------- Display Helpers ----------
 
 function Show-Intro {
-    Clear-Host
+    #Clear-Host
     Write-Art $FoyerArt "DarkGray"
     Write-Host ""
     Write-Slow "THE HAUNTED HOUSE" 20 "Red"
     Write-Host ""
     Write-Slow "Your flashlight flickers as you step through the front door of the old Blackwood house." 10 "White"
     Write-Slow "Legend says a treasure lies buried somewhere within its twelve rooms..." 10 "White"
-    Write-Slow "You've brought two things for courage: a black stuffed skeleton and a blue one." 10 "White"
+    Write-Slow "You've brought two stuffed skeletons for courage: a black one and a blue one." 10 "White"
     Write-Host ""
     Write-Slow "Type 'help' at any time to see your options." 10 "Cyan"
     Suspend-Key
