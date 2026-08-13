@@ -11,7 +11,7 @@ $global:Rooms = @{}
 # --- Ground floor ---
 New-Room -Id "foyer" -Name "Front Foyer" -Floor 1 -Desc "You stand in a grand, dusty foyer. A chandelier sways slightly even though there's no breeze. A staircase leads up. Doors lead to a Living Room and a Dining Room." -Art $FoyerArt -Exits @{ north="livingroom"; east="dining"; up="hallway" }
 
-New-Room -Id "livingroom" -Name "Living Room" -Floor 1 -Desc "An old TV flickers in the corner, somehow still playing 'Gabby's Dollhouse' reruns to no one. Moth-eaten sofas line the walls." -Art $LivingRoomArt -Exits @{ south="foyer"; east="kitchen" } -Clue "The TV static briefly clears, showing a message: 'Under the stairs, cats don't dig, but treasure might.'"
+New-Room -Id "livingroom" -Name "Living Room" -Floor 1 -Desc "An old TV flickers above the fireplace, somehow still playing 'Gabby's Dollhouse' reruns to no one. Moth-eaten sofas line the walls." -Art $LivingRoomArt -Exits @{ south="foyer"; east="kitchen" } -Clue "The TV static briefly clears, showing a message: 'Under the stairs, cats don't dig, but treasure might.'"
 
 New-Room -Id "dining" -Name "Dining Room" -Floor 1 -Desc "A long table is set for twelve, plates untouched for decades. A chandelier drips wax that never lands." -Art $DiningArt -Exits @{ west="foyer"; north="kitchen" } -Clue "Scratched into the table: 'The room with the coldest floor hides the warmest secret.'"
 
