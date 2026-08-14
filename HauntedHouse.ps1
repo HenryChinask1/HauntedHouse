@@ -109,7 +109,7 @@ function New-Room {
 
 function Show-Intro {
     Clear-Host
-    Write-Art $FoyerArt "DarkGray"
+    Write-Art $HouseArt "DarkGray"
     Write-Host ""
     Write-Slow "THE HAUNTED HOUSE" 20 "Red"
     Write-Host ""
@@ -118,6 +118,7 @@ function Show-Intro {
     Write-Slow "You've brought two stuffed skeletons for courage: a black one and a blue one." 10 "White"
     Write-Host ""
     Write-Slow "Type 'help' at any time to see your options." 10 "Cyan"
+    Show-Help
     Suspend-Key
 }
 
