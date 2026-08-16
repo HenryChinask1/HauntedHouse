@@ -4,16 +4,10 @@ A text adventure game for PowerShell. Explore a dozen rooms across two floors of
 
 ## How to run
 
-Open powershell and navgate to the directory
+Open powershell and navgate to the file
 
 ```powershell
-cd path/to/HauntedHouse
-```
-
-Or, if you're already in a PowerShell prompt with a permissive execution policy:
-
-```powershell
-.\HauntedHouse.ps1
+.\path\to\HauntedHouse.ps1
 ```
 
 ## Commands
