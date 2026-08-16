@@ -22,7 +22,7 @@ New-Room -Id "basement" -Name "Basement" -Floor 1 -Desc "Thick spiderwebs coat e
 # --- Hallway connects floors, has armor & stairs ---
 New-Room -Id "hallway" -Name "Upstairs Hallway" -Floor 2 -Desc "A suit of armor stands motionless at the end of the hall... or does it? Doors branch off in every direction." -Art $HallwayArt -Exits @{ down="foyer"; north="master"; east="library"; west="kidsroom"; south="bath" } -Npc "armor"
 
-New-Room -Id "master" -Name "Master Bedroom" -Floor 2 -Desc "A four-poster bed dominates the room. A dumbwaiter door is set into the wall, its rope frayed but intact." -Art $MasterArt -Exits @{ south="hallway"; up="attic" } -Locked $true -KeyNeeded "atticaccess" -Clue "Under the pillow, a note: 'The globe in the study spins toward truth.'"
+New-Room -Id "master" -Name "Master Bedroom" -Floor 2 -Desc "A spider stuffed animal sits in the corner of the bedroom. A dumbwaiter door is set into the wall, its rope frayed but intact." -Art $MasterArt -Exits @{ south="hallway"; up="attic" } -Locked $true -KeyNeeded "atticaccess" -Clue "Under the pillow, a note: 'The globe in the study spins toward truth.'"
 
 New-Room -Id "library" -Name "Library" -Floor 2 -Desc "Floor-to-ceiling bookshelves, most collapsed. Something rustles between the pages of a fallen book." -Art $LibraryArt -Exits @{ west="hallway"; north="study" } -Clue "A bookmark reads: 'The closet keeps what the coats forgot.'"
 
