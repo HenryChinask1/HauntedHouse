@@ -13,11 +13,11 @@ New-Room -Id "foyer" -Name "Front Foyer" -Floor 1 -Desc "You stand in a grand, d
 
 New-Room -Id "livingroom" -Name "Living Room" -Floor 1 -Desc "An old TV flickers above the fireplace, somehow still playing 'Gabby's Dollhouse' reruns to no one. Moth-eaten sofas line the walls." -Art $LivingRoomArt -Exits @{ south="foyer"; east="kitchen" } -Clue "The TV static briefly clears, showing a message: 'Under the stairs, cats don't dig, but treasure might.'"
 
-New-Room -Id "dining" -Name "Dining Room" -Floor 1 -Desc "A long table is set for twelve, plates untouched for decades. A chandelier drips wax that never lands." -Art $DiningArt -Exits @{ west="foyer"; north="kitchen" } -Clue "Scratched into the table: 'The room with the coldest floor hides the warmest secret.'"
+New-Room -Id "dining" -Name "Dining Room" -Floor 1 -Desc "A long table is set for twelve, plates untouched for decades. A chandelier drips wax that never lands." -Art $DiningArt -Exits @{ west="foyer"; north="kitchen"; south="basement" } -Clue "Scratched into the table: 'The room with the coldest floor hides the warmest secret.'"
 
 New-Room -Id "kitchen" -Name "Kitchen" -Floor 1 -Desc "Pots hang crookedly. A rusty dumbwaiter shaft leads up into darkness." -Art $KitchenArt -Exits @{ west="livingroom"; south="dining" } -Clue "A recipe card reads: 'Two eyes of glass watch the study from above the mantle.'"
 
-New-Room -Id "basement" -Name "Basement" -Floor 1 -Desc "Thick spiderwebs coat every surface. Something with too many legs just scurried out of your flashlight beam." -Art $BasementArt -Exits @{ up="kitchen" } -Locked $true -KeyNeeded "cellarkey" -Clue "Carved into a support beam: 'What ticks but has no heart hides where letters are written.'"
+New-Room -Id "basement" -Name "Basement" -Floor 1 -Desc "Thick spiderwebs coat every surface. Something with too many legs just scurried out of your flashlight beam." -Art $BasementArt -Exits @{ up="dining" } -Locked $true -KeyNeeded "cellarkey" -Clue "Carved into a support beam: 'What ticks but has no heart hides where letters are written.'"
 
 # --- Hallway connects floors, has armor & stairs ---
 New-Room -Id "hallway" -Name "Upstairs Hallway" -Floor 2 -Desc "A suit of armor stands motionless at the end of the hall... or does it? Doors branch off in every direction." -Art $HallwayArt -Exits @{ down="foyer"; north="master"; east="library"; west="kidsroom"; south="bath" } -Npc "armor"
