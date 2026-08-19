@@ -22,7 +22,7 @@ function Write-Slow {
 }
 
 function Write-Art {
-    param([string]$Art, [string]$Color = "DarkGray")
+    param([string]$Art, [string]$Color = "White")
     Write-Host $Art -ForegroundColor $Color
 }
 
