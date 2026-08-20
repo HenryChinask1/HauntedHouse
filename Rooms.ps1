@@ -89,7 +89,7 @@ New-Room -Id "study" `
 New-Room -Id "kidsroom" `
          -Name "Kid's Room" `
          -Floor 2 `
-         -Desc "A single teddy bear sits abandoned on the floor. The bunkbed's top mattress has claw marks." `
+         -Desc "A spider toy sits abandoned near a crack in the floor. The bed is draped in tattered sheets." `
          -Art $KidsRoomArt `
          -Exits @{ east="hallway"; north="closet" } `
          -Clue "Crayon scrawl on the wall: 'The basement beam counts the ticks of a clock with no heart.'"
