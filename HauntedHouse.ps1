@@ -535,6 +535,7 @@ function Start-Game {
     Enter-Room $global:CurrentRoom | Out-Null
 
     while (-not $global:GameOver) {
+        Write-Host "What do you want to do?"
         $cmd = Read-Cmd
         Invoke-Command -CommandLine $cmd
     }

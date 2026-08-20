@@ -12,7 +12,7 @@ $global:Rooms = @{}
 New-Room -Id "foyer" `
          -Name "Front Foyer" `
          -Floor 1 `
-         -Desc "You stand in a grand, dusty foyer. A chandelier sways slightly even though there's no breeze. A staircase leads up. Doors lead to a Living Room and a Dining Room." `
+         -Desc "You stand in a grand, dusty foyer. The stairs creak even though there's no one in the house. A staircase leads up. Doors lead to a Living Room and a Dining Room." `
          -Art $FoyerArt `
          -Exits @{ north="livingroom"; east="dining"; up="hallway" }
 
@@ -148,12 +148,12 @@ $global:FloorLayouts = @{
     1 = @(
         @("livingroom", "kitchen"),
         @("foyer",       "dining"),
-        @($null,         $null)
+        @($null,         "basement")
     )
     2 = @(
         @($null,      "attic", $null),
         @("closet",   "master",  "study"),
         @("kidsroom", "hallway", "library"),
-        @($null,      "bath",    "basement")
+        @($null,      "bath",    $null)
     )
 }
