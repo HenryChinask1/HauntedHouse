@@ -119,7 +119,7 @@ New-Room -Id "attic" `
          -Npc "ghost"
 
 # Randomize treasure room among rooms that are not foyer/hallway (entry points)
-$possibleTreasureRooms = @("basement","master","library","study","kidsroom","closet","bath","attic")
+$possibleTreasureRooms = @("basement","master","livingroom","foyer","dining","kitchen","library","study","kidsroom","closet","bath","attic")
 $global:TreasureRoom = $possibleTreasureRooms | Get-Random
 
 # --- Map data (used by the `map` command for a top-down view) ---
@@ -132,7 +132,7 @@ $global:RoomLabels = @{
     kitchen    = "Kitchen"
     basement   = "Basement"
     hallway    = "Hallway"
-    master     = "Master Bd"
+    master     = "Mstr Bed"
     library    = "Library"
     study      = "Study"
     kidsroom   = "Kids Room"
@@ -148,11 +148,12 @@ $global:FloorLayouts = @{
     1 = @(
         @("livingroom", "kitchen"),
         @("foyer",       "dining"),
-        @($null,         "basement")
+        @($null,         $null)
     )
     2 = @(
+        @($null,      "attic", $null),
         @("closet",   "master",  "study"),
         @("kidsroom", "hallway", "library"),
-        @($null,      "bath",    $null)
+        @($null,      "bath",    "basement")
     )
 }

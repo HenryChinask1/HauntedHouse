@@ -109,13 +109,13 @@ function New-Room {
 
 function Show-Intro {
     Clear-Host
-    Write-Art $HouseArt "DarkGray"
+    Write-Art $HouseArt "Gray"
     Write-Host ""
-    Write-Slow "THE HAUNTED HOUSE" 20 "Red"
+    Write-Slow "THE SPOOKY HOUSE" 20 "Red"
     Write-Host ""
     Write-Slow "Your flashlight flickers as you step through the front door of the old Clownyface house." 10 "White"
-    Write-Slow "Legend says a treasure lies buried somewhere within its twelve rooms..." 10 "White"
-    Write-Slow "You've brought two stuffed skeletons for courage: a black one and a blue one." 10 "White"
+    Write-Slow "Legend says a treasure lies buried somewhere within its 12 rooms..." 10 "White"
+    Write-Slow "You've brought along two stuffed skeletons for courage: a black one and a blue one." 10 "White"
     Write-Host ""
     Write-Slow "Type 'help' at any time to see your options." 10 "Cyan"
     Show-Help
@@ -128,14 +128,14 @@ function Show-Help {
     Write-Host "  go <direction>     - move (north, south, east, west, up, down)"
     Write-Host "  look               - re-read the room description"
     Write-Host "  search             - search the room for clues/items"
-    Write-Host "  dig                - dig for buried treasure in this room"
+    Write-Host "  dig                - dig for the buried treasure in this room"
     Write-Host "  inventory / i      - show what you're carrying"
     Write-Host "  flashlight         - toggle your flashlight on/off"
     Write-Host "  clues              - review clues you've collected"
     Write-Host "  talk               - talk to a character in the room, if any"
     Write-Host "  use <item>         - use an item (e.g. 'use black skeleton', 'use key')"
     Write-Host "  map                - show discovered rooms and exits"
-    Write-Host "  quit               - leave the house (end game)"
+    Write-Host "  quit / exit        - leave the house (end game)"
 }
 
 function Show-Inventory {
