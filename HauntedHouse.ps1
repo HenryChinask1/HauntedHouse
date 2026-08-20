@@ -292,14 +292,18 @@ function Enter-Room {
 
     $global:CurrentRoom = $RoomId
     $global:Visited[$RoomId] = $true
-
-    Clear-Host
-    Write-Art $room.Art "DarkGray"
-    Write-Host ""
-    Write-Host "== $($room.Name) ==" -ForegroundColor Green
+    
     if ($global:FlashlightOn -or $room.Id -in $global:LitRooms) {
+        Clear-Host
+        Write-Art $room.Art "White"
+        Write-Host ""
+        Write-Host "== $($room.Name) ==" -ForegroundColor Green
         Write-Slow $room.Desc 6 "White"
     } else {
+        Clear-Host
+        Write-Art $room.Art "DarkGray"
+        Write-Host ""
+        Write-Host "== $($room.Name) ==" -ForegroundColor Green
         Write-Slow "It's too dark to see clearly. Maybe turn on your flashlight?" 6 "DarkGray"
     }
 
@@ -408,6 +412,7 @@ function Start-Talk {
 
 function Enable-Flashlight {
     $global:FlashlightOn = -not $global:FlashlightOn
+    Enter-Room $global:CurrentRoom | Out-Null
     if ($global:FlashlightOn) {
         Write-Slow "Click. Your flashlight beam cuts through the darkness." 6 "Cyan"
     } else {
