@@ -384,6 +384,9 @@ function Start-Talk {
         "ghost" {
             if (-not $global:GhostBefriended) {
                 if ($global:HasBlackSkeleton -or $global:HasBlueSkeleton) {
+                    $room.Art = $AtticArtWithGhost
+                    Clear-Host
+                    Write-Art $room.Art "White"
                     Write-Host ""
                     Write-Slow "You hold out one of your stuffed skeletons. The ghost's hollow eyes widen." 8 "Magenta"
                     Write-Slow "'You brought a friend for me?' it whispers, and gently takes the skeleton." 8 "Magenta"
@@ -394,6 +397,10 @@ function Start-Talk {
                     $global:GhostBefriended = $true
                 } else {
                     Write-Slow "The ghost reaches toward you, but you have nothing to offer it. It recoils sadly." 8 "Magenta"
+                    $room.Art = $AtticArt
+                    Clear-Host
+                    Write-Art $room.Art "white"
+
                 }
             } else {
                 Write-Slow "The ghost child hums softly, content, cradling the stuffed skeleton you gave it." 6 "Magenta"
