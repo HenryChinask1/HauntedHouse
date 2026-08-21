@@ -317,6 +317,13 @@ function Enter-Room {
 function Invoke-Search {
     $room = $global:Rooms[$global:CurrentRoom]
 
+    if ($room.Id -eq "hallway") {
+        $room.Art = $HallwayArtMoved
+        Clear-Host
+        Write-Art $room.Art "White"
+        Write-Slow "You search and find nothing of note - but you notice the suit of armor has moved closer to you."
+    }
+
     if (-not $global:FlashlightOn -and $room.Id -notin $global:LitRooms) {
         Write-Slow "It's too dark to search properly. Turn on your flashlight first." 8 "Red"
         return
@@ -333,7 +340,7 @@ function Invoke-Search {
         Write-Slow "You search carefully and find something..." 6 "Cyan"
         Write-Slow $room.Clue 6 "Yellow"
         $global:CluesFound += $room.Clue
-    } else {
+    } elseif ($room.Id -notin "hallway") {
         Write-Slow "You search but find nothing of note - just dust and cobwebs." 6 "DarkGray"
     }
 
@@ -378,7 +385,10 @@ function Start-Talk {
     }
     switch ($room.Npc) {
         "armor" {
-            Write-Slow "You address the suit of armor. It says nothing... but you notice its gauntlet points toward the Dining Room." 8 "Gray"
+            $room.Art = $HallwayArtMoved
+            Clear-Host
+            Write-Art $room.Art "White"
+            Write-Slow "You address the suit of armor. It says nothing... but you notice its gauntlet now points toward the Dining Room." 8 "Gray"
             $global:ArmorMoved = $true
         }
         "ghost" {
